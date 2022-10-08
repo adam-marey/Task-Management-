@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-export default function CreateTask({ modal, toggle }) {
+export default function CreateTask({ modal, toggle, save }) {
   const [taskName, setTaskName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -13,6 +13,12 @@ export default function CreateTask({ modal, toggle }) {
     } else {
       setDescription(value);
     }
+  };
+  const handleSave = () => {
+    let taskObj = {};
+    taskObj['Name'] = taskName;
+    taskObj['Description'] = description;
+    save(taskObj);
   };
   return (
     <Modal isOpen={modal} toggle={toggle}>
@@ -42,7 +48,7 @@ export default function CreateTask({ modal, toggle }) {
         </form>
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={toggle}>
+        <Button color="primary" onClick={handleSave}>
           Create
         </Button>{' '}
         <Button color="secondary" onClick={toggle}>
